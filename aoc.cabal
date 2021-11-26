@@ -25,8 +25,7 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
-      Modules
+      Library
   other-modules:
       Paths_aoc
   hs-source-dirs:
@@ -52,6 +51,7 @@ library
   build-depends:
       array
     , base >=4.7 && <5
+    , containers
     , data-clist
     , filepath
     , lens
@@ -62,34 +62,35 @@ library
 executable aoc-exe
   main-is: Main.hs
   other-modules:
-      Day1
-      Day10
-      Day11
-      Day12
-      Day13
-      Day14
-      Day15
-      Day16
-      Day17
-      Day18
-      Day19
-      Day2
-      Day20
-      Day21
-      Day22
-      Day23
-      Day24
-      Day25
-      Day3
-      Day4
-      Day5
-      Day6
-      Day7
-      Day8
-      Day9
+      AOC.Y2020.Day1
+      AOC.Y2020.Day10
+      AOC.Y2020.Day11
+      AOC.Y2020.Day12
+      AOC.Y2020.Day13
+      AOC.Y2020.Day14
+      AOC.Y2020.Day15
+      AOC.Y2020.Day16
+      AOC.Y2020.Day17
+      AOC.Y2020.Day18
+      AOC.Y2020.Day19
+      AOC.Y2020.Day2
+      AOC.Y2020.Day20
+      AOC.Y2020.Day21
+      AOC.Y2020.Day22
+      AOC.Y2020.Day23
+      AOC.Y2020.Day24
+      AOC.Y2020.Day25
+      AOC.Y2020.Day3
+      AOC.Y2020.Day4
+      AOC.Y2020.Day5
+      AOC.Y2020.Day6
+      AOC.Y2020.Day7
+      AOC.Y2020.Day8
+      AOC.Y2020.Day9
+      AOC.Y2020.Main
       Paths_aoc
   hs-source-dirs:
-      app/2020/
+      app/src
   default-extensions:
       BangPatterns
       DuplicateRecordFields
@@ -113,6 +114,7 @@ executable aoc-exe
       aoc
     , array
     , base >=4.7 && <5
+    , containers
     , data-clist
     , filepath
     , lens
@@ -150,6 +152,7 @@ test-suite aoc-test
       aoc
     , array
     , base >=4.7 && <5
+    , containers
     , data-clist
     , filepath
     , lens
