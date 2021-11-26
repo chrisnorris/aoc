@@ -63,7 +63,7 @@ trimEnd = reverse . drop 2 . reverse
 
 getIntersects (l : ls) = foldl intersect l ls
 
-parseFile :: [[Char]] -> [Char]
+parseFile :: [String] -> String
 parseFile = foldr newLineDemarcated []
  where
   newLineDemarcated e st = case e of
@@ -82,5 +82,15 @@ makeOp op v = case head v of
   '+' -> op (read (drop 1 v) :: Int)
   _   -> op (read v :: Int)
 
-mkRegex :: [Char] -> Regex
+mkRegex :: String -> Regex
 mkRegex = makeRegexOpts defaultCompOpt { multiline = False } defaultExecOpt
+
+asCircularList :: String -> CList Int
+asCircularList = CL.fromList . (read <$>) . reverse . foldl breakOut []
+
+breakOut st el = [[el]] <> st
+
+repeatN n = foldr (.) id . replicate n
+
+
+

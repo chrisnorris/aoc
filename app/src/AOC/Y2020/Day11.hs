@@ -31,7 +31,7 @@ main = do
               'L' -> if noOccupieds then '#' else 'L'
 
       loop n arrStart arr =
-        ( if arrStart == arr
+         if arrStart == arr
             then return (n, arrStart)
             else
               loop
@@ -41,7 +41,6 @@ main = do
                     ((0, 0), (97, 94))
                     [newSeat arr (i, j) | i <- [0 .. 97], j <- [0 .. 94]]
                 )
-        )
 
   loop 0 (A.listArray ((0, 0), (97, 94)) $ repeat '.') arrInit
 

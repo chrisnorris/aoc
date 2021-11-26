@@ -21,10 +21,7 @@ main n = do
     next3 = fromJust . uncons . reverse . take 4 . rightElements . rotR $ inp
     drop3 = repeatN 3 removeR . rotR $ inp
   simulate _ = error "cant be empty circular list"
-  repeatN n = foldr (.) id . replicate n
   breakOut st el = [[el]] <> st
-  asCircularList :: String -> CList Int
-  asCircularList = fromList . (read <$>) . reverse . foldl breakOut []
 
 main23_partii :: Int -> IO (CList Int)
 main23_partii n = do
@@ -48,7 +45,4 @@ main23_partii n = do
     next3 = fromJust . uncons . reverse . take 4 . rightElements . rotR $ inp
     drop3 = repeatN 3 removeR . rotR $ inp
   simulate _ = error "cant be empty circular list"
-  repeatN n = foldr (.) id . replicate n
-  breakOut st el = [[el]] <> st
-  asCircularList :: String -> CList Int
-  asCircularList = fromList . (read <$>) . reverse . foldl breakOut []
+
