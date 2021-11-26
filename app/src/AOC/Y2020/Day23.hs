@@ -1,0 +1,54 @@
+module AOC.Y2020.Day23 where
+
+import Library
+
+main n = do
+  let samp  = asCircularList "389125467"
+  let final = asCircularList "198753462"
+  print $ repeatN n simulate final
+ where
+  simulate inp@(focus -> Just fs) = rotate next3 drop3
+   where
+    rotate n3 (rotateTo (adj (fs -1) (snd n3)) -> Just refocussed) =
+      fromJust $ rotateTo (fst n3) $ foldr insertL refocussed (snd n3)
+    rotate n3 _ = error "missing element for rotation"
+    adj focus chosen = case focus `compare` 0 of
+      EQ -> adj 9 chosen
+      _  -> rejig chosen
+       where
+        rejig chosen@((focus `elem`) -> True) = adj (focus - 1) chosen
+        rejig _                               = focus
+    next3 = fromJust . uncons . reverse . take 4 . rightElements . rotR $ inp
+    drop3 = repeatN 3 removeR . rotR $ inp
+  simulate _ = error "cant be empty circular list"
+  repeatN n = foldr (.) id . replicate n
+  breakOut st el = [[el]] <> st
+  asCircularList :: String -> CList Int
+  asCircularList = fromList . (read <$>) . reverse . foldl breakOut []
+
+main23_partii :: Int -> IO (CList Int)
+main23_partii n = do
+  let samp  = asCircularList "389125467"
+  let final = asCircularList "198753462"
+
+  let lots  = [10 .. 10 ^ 6]
+  return $ repeatN n simulate (fromList $ [3, 8, 9, 1, 2, 5, 4, 6, 7] <> lots)
+ where
+  simulate inp@(focus -> Just fs) = rotate next3 drop3
+   where
+    rotate n3 (rotateTo (adj (fs -1) (snd n3)) -> Just refocussed) =
+      fromJust $ rotateTo (fst n3) $ foldr insertL refocussed (snd n3)
+    rotate n3 _ = error "missing element for rotation"
+    adj focus chosen = case focus `compare` 0 of
+      EQ -> adj 999999 chosen
+      _  -> rejig chosen
+       where
+        rejig chosen@((focus `elem`) -> True) = adj (focus - 1) chosen
+        rejig _                               = focus
+    next3 = fromJust . uncons . reverse . take 4 . rightElements . rotR $ inp
+    drop3 = repeatN 3 removeR . rotR $ inp
+  simulate _ = error "cant be empty circular list"
+  repeatN n = foldr (.) id . replicate n
+  breakOut st el = [[el]] <> st
+  asCircularList :: String -> CList Int
+  asCircularList = fromList . (read <$>) . reverse . foldl breakOut []
