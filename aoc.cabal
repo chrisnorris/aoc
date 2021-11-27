@@ -87,7 +87,6 @@ executable aoc-exe
       AOC.Y2020.Day7
       AOC.Y2020.Day8
       AOC.Y2020.Day9
-      AOC.Y2020.Main
       Paths_aoc
   hs-source-dirs:
       app/src

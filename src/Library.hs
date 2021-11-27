@@ -54,7 +54,7 @@ import           Text.Parsec                   as P
 import           Text.Regex.TDFA
 
 readFile' :: FilePath -> IO String
-readFile' file = readFile ("app/2020/input" </> file)
+readFile' file = readFile ("app/input" </> file)
 
 for = flip Prelude.map
 trimmed = drop 1

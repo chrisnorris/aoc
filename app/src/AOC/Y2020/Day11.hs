@@ -23,10 +23,13 @@ main = do
             adj = adjacents (x, y) arr
             noOccupieds = '#' `notElem` adj
          in case nowSeat of
+           
               -- If a seat is occupied (#) and four or more seats adjacent to it are also occupied, the seat becomes empty.
               '#' -> if length (filter (== '#') adj) >= 4 then 'L' else '#'
+
               -- Otherwise, the seat's state does not change.
               '.' -> '.'
+
               -- If a seat is empty (L) and there are no occupied seats adjacent to it, the seat becomes occupied.
               'L' -> if noOccupieds then '#' else 'L'
 
