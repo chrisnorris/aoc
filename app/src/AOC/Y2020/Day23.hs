@@ -21,7 +21,6 @@ main n = do
     next3 = fromJust . uncons . reverse . take 4 . rightElements . rotR $ inp
     drop3 = repeatN 3 removeR . rotR $ inp
   simulate _ = error "cant be empty circular list"
-  breakOut st el = [[el]] <> st
 
 main23_partii :: Int -> IO (CList Int)
 main23_partii n = do
