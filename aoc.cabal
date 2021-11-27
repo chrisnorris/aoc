@@ -10,7 +10,7 @@ description:    Please see the README on GitHub at <https://github.com/chrisnorr
 homepage:       https://github.com/chrisnorris/aoc#readme
 bug-reports:    https://github.com/chrisnorris/aoc/issues
 author:         Christopher Norris
-maintainer:     moi
+maintainer:     me
 copyright:      2021 Christopher Norris
 license:        BSD3
 license-file:   LICENSE
