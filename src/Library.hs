@@ -54,9 +54,10 @@ import           Text.Parsec                   as P
 import           Text.Regex.TDFA
 
 readFile' :: FilePath -> IO String
-readFile' file = readFile ("app/input" </> file)
+readFile' = readFile . ("app/input" </>)
 
 for = flip Prelude.map
+
 trimmed = drop 1
 
 trimEnd = reverse . drop 2 . reverse
@@ -88,9 +89,8 @@ mkRegex = makeRegexOpts defaultCompOpt { multiline = False } defaultExecOpt
 asCircularList :: String -> CList Int
 asCircularList = CL.fromList . (read <$>) . reverse . foldl breakOut []
 
-breakOut st el = [[el]] <> st
+breakOut = flip ((<>) . return . return)
 
-repeatN n = foldr (.) id . replicate n
-
+repeatN = (foldr (.) id .) . replicate
 
 
