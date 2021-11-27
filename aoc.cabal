@@ -10,7 +10,7 @@ description:    Please see the README on GitHub at <https://github.com/chrisnorr
 homepage:       https://github.com/chrisnorris/aoc#readme
 bug-reports:    https://github.com/chrisnorris/aoc/issues
 author:         Christopher Norris
-maintainer:     me
+maintainer:     moi
 copyright:      2021 Christopher Norris
 license:        BSD3
 license-file:   LICENSE
@@ -60,7 +60,7 @@ library
   default-language: Haskell2010
 
 executable aoc-exe
-  main-is: Main.hs
+  main-is: main.hs
   other-modules:
       AOC.Y2020.Day1
       AOC.Y2020.Day10
@@ -87,6 +87,7 @@ executable aoc-exe
       AOC.Y2020.Day7
       AOC.Y2020.Day8
       AOC.Y2020.Day9
+      AOC.Y2020.Timings
       Paths_aoc
   hs-source-dirs:
       app/src

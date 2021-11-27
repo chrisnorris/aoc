@@ -1,3 +1,1 @@
-module AOC.Main where
-
-main = undefined
+import AOC.Y2020.Timings

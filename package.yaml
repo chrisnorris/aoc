@@ -55,7 +55,7 @@ library:
 
 executables:
     aoc-exe:
-        main: Main.hs
+        main: main.hs
         source-dirs: app/src
         ghc-options:
             - -threaded
