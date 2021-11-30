@@ -2,7 +2,10 @@ module AOC.Y2020.Day7 where
 
 import Library
 
-main6b =
+main ::IO ()
+main = void day7
+
+day7 =
   readFile' "d6a.input"
     >>= (return . sum)
       . map (length . getIntersects . words)

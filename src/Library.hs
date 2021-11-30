@@ -12,6 +12,7 @@ module Library
   , forM
   , foldM
   , fromJust
+  , void
   )
 where
 
@@ -22,6 +23,7 @@ import           Control.Monad                  ( ap
                                                 , forM
                                                 , forM_
                                                 , liftM2
+                                                , void
                                                 )
 import qualified Data.Array                    as A
 import           Data.Bits
@@ -55,6 +57,9 @@ import           Text.Regex.TDFA
 
 readFile' :: FilePath -> IO String
 readFile' = readFile . ("app/input" </>)
+
+readFile'' :: FilePath -> IO String
+readFile'' = readFile . ("input" </>)
 
 for = flip Prelude.map
 

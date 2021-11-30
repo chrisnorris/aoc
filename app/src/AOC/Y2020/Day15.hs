@@ -3,8 +3,11 @@ module AOC.Y2020.Day15 where
 import Library
 import qualified Data.Map as Map
 
-main :: [Integer] -> IO (Integer, Integer)
-main inp = return
+main :: IO ()
+main = void (day15 [6,19,0,5,7,13,1])
+
+day15 :: [Integer] -> IO (Integer, Integer)
+day15 inp = return
   $ go (Map.fromList $ zipWith (\i e -> (i, [e])) inp [1 ..]) 1 8
  where
   go m spoken loop = if loop > 30000000

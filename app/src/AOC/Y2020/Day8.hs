@@ -2,10 +2,13 @@ module AOC.Y2020.Day8 where
 
 import Library
 
-main8 =
+main :: IO()
+main = void day8
+
+day8 =
   readFile' "d8.input" >>= interpret 0 0 . map ((,1) . parseOperand) . lines
 
-main8b = do
+day8b = do
   baseCodes <- map ((,1) . parseOperand) . lines <$> readFile' "d8.input"
   let allCodes = zip [0 ..] baseCodes
   forM
@@ -27,22 +30,19 @@ interpretb pc acc instructions =
     then return (acc, "TERMS")
     else case (instructions !! pc, pc) of
       (x@(Jmp n, 1), _) ->
-        print (pc, acc, x)
-          >> interpret
+           interpret
             (pc + n)
             acc
             (take pc instructions ++ [(Jmp n, 2)] ++ drop (pc + 1) instructions)
       (x@(Jmp n, 2), _) -> return (acc, "LOOP")
       (x@(Acc n, 1), _) ->
-        print (pc, acc, x)
-          >> interpret
+           interpret
             (pc + 1)
             (acc + n)
             (take pc instructions ++ [(Acc n, 2)] ++ drop (pc + 1) instructions)
       (x@(Acc n, 2), _) -> return (acc, "LOOP")
       (x@(Nop n, 1), _) ->
-        print (pc, acc, x)
-          >> interpret
+           interpret
             (pc + 1)
             acc
             (take pc instructions ++ [(Nop n, 2)] ++ drop (pc + 1) instructions)
@@ -54,22 +54,19 @@ interpret pc acc instructions =
     then return (acc, "TERMS")
     else case (instructions !! pc, pc) of
       (x@(Jmp n, 1), _) ->
-        print (pc, acc, x)
-          >> interpret
+           interpret
             (pc + n)
             acc
             (take pc instructions ++ [(Jmp n, 2)] ++ drop (pc + 1) instructions)
       (x@(Jmp n, 2), _) -> return (acc, "LOOP")
       (x@(Acc n, 1), _) ->
-        print (pc, acc, x)
-          >> interpret
+           interpret
             (pc + 1)
             (acc + n)
             (take pc instructions ++ [(Acc n, 2)] ++ drop (pc + 1) instructions)
       (x@(Acc n, 2), _) -> return (acc, "LOOP")
       (x@(Nop n, 1), _) ->
-        print (pc, acc, x)
-          >> interpret
+           interpret
             (pc + 1)
             acc
             (take pc instructions ++ [(Nop n, 2)] ++ drop (pc + 1) instructions)

@@ -2,7 +2,10 @@ module AOC.Y2020.Day1 where
 
 import Library
 
-main =
+main :: IO ()
+main = void $ day1
+
+day1 = 
   (\num ->
       nub
         $  traverse

@@ -12,3 +12,5 @@ import Library
 --     A.listArray ((0,0) ,(8,8)) $ unwords $ take 9 . drop 1 $ x
 --     put into map of id array (9,9) Int
 --     (\x -> [C a b c | a<-["90","180"], b <- [True, False], c <- x, valid (C a b c )] ) <$> (permutations s)
+
+main = undefined

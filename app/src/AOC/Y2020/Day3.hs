@@ -2,7 +2,10 @@ module AOC.Y2020.Day3 where
 
 import Library
 
-main = do
+main :: IO ()
+main = void day3
+
+day3 = do
   i <- lines <$> readFile' "d3.input"
   let steps (r, d) = (0, 0) ^.. unfolded
         (\(x, y) ->
@@ -17,4 +20,5 @@ main = do
     . product
     $ [ length [ x | x <- foldr slope [] (steps slopeC), x == '#' ]
       | slopeC <- ((, 1) <$> [1, 3, 5, 7]) <> [(1, 2)]
+
       ]

@@ -2,8 +2,10 @@ module AOC.Y2020.Day18 where
 
 import Library
 
+main :: IO ()
+main = day18 >>= print
 
-main = do
+day18 = do
   source <- lines <$> readFile' "d18.input"
   return $ tokenize [] . words <$> source
   where
