@@ -13,6 +13,7 @@ module Library
   , foldM
   , fromJust
   , void
+  , liftM2
   )
 where
 

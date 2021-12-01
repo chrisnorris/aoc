@@ -1,2 +1,2 @@
-import AOC.Y2020.Timings
+import AOC.Y2021.Timings
 main = timings

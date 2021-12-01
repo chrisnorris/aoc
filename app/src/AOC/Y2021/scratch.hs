@@ -35,11 +35,15 @@ import System.IO
 import qualified Text.Parsec as P
 import Text.Regex.TDFA
 
-main =
-  (map read) <$> (lines <$> readFile21 "d1.input") >>= 
-    \inp ->
-    return . length . filter (== LT) $ uncurry compare <$> inp `zip` (drop 1 inp ++ [0])
+main = do
+  let m inp = length . filter (== LT) $ uncurry compare <$> inp `zip` (drop 1 inp <> [0])
+  map read <$> (lines <$> readFile21 "d1.input") >>= return . liftM2 (,) m (m . (sum <$>) . win)
 
 
 readFile21 :: FilePath -> IO String
 readFile21 = readFile . ("../../../input/2021" </>)
+
+
+win = go []
+ where go l [] = l
+       go l xs = go (l <> [take 3 xs]) (drop 1 xs)
