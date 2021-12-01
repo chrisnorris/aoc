@@ -56,6 +56,9 @@ import           Text.Parsec                   as P
                                                 )
 import           Text.Regex.TDFA
 
+d1 :: IO [Int]
+d1 = Prelude.map read <$> (lines <$> readFile21 "d1.input")
+
 readFile' :: FilePath -> IO String
 readFile' = readFile . ("app/input" </>)
 
