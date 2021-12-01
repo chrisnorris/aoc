@@ -58,6 +58,9 @@ import           Text.Regex.TDFA
 readFile' :: FilePath -> IO String
 readFile' = readFile . ("app/input" </>)
 
+readFile21 :: FilePath -> IO String
+readFile21 = readFile . ("app/input/2021" </>)
+
 readFile'' :: FilePath -> IO String
 readFile'' = readFile . ("input" </>)
 
