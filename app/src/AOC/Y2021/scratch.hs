@@ -37,14 +37,16 @@ import Text.Regex.TDFA
 
 main = do
   let m inp = sum [1 | (f,s) <- inp `zip` (tail inp) , f < s ]
-  map read <$> (lines <$> readFile21 "d1.input") >>= return . liftM2 (,) m (m . (sum <$>) . win)
+  map read <$> (readFile21 "d1.input") >>= return . liftM2 (,) m (m . (sum <$>) . win)
 
 main2 = do
   let m inp = length . filter (== LT) $ uncurry compare <$> inp `zip` (drop 1 inp <> [0])
-  map read <$> (lines <$> readFile21 "d1.input") >>= return . liftM2 (,) m (m . (sum <$>) . win)
+  map read <$> (readFile21 "d1.input") >>= return . liftM2 (,) m (m . (sum <$>) . win)
 
-readFile21 :: FilePath -> IO String
-readFile21 = readFile . ("../../../input/2021" </>)
+main3 = readFile21 "d2.input"
+
+readFile21 :: FilePath -> IO [String]
+readFile21 = (lines <$>) . readFile . ("../../../input/2021" </>)
 
 
 win = go []

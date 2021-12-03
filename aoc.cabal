@@ -93,6 +93,8 @@ executable aoc
       AOC.Y2020.Day9
       AOC.Y2020.Timings
       AOC.Y2021.Day1
+      AOC.Y2021.Day2
+      AOC.Y2021.Day3
       AOC.Y2021.Timings
       Paths_aoc
   hs-source-dirs:

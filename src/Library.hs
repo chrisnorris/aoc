@@ -40,6 +40,7 @@ import           Data.List                      ( drop
                                                 , sortBy
                                                 , take
                                                 , unfoldr
+                                                , partition
                                                 )
 import           Data.Map                      as Map
                                          hiding ( drop
@@ -56,17 +57,17 @@ import           Text.Parsec                   as P
                                                 )
 import           Text.Regex.TDFA
 
-d1 :: IO [Int]
-d1 = Prelude.map read <$> (lines <$> readFile21 "d1.input")
+inp21I :: FilePath -> IO [Int]
+inp21I = (Prelude.map read <$>) . inp21Str
 
-readFile' :: FilePath -> IO String
-readFile' = readFile . ("app/input" </>)
-
-readFile21 :: FilePath -> IO String
-readFile21 = readFile . ("app/input/2021" </>)
+inp21Str :: FilePath -> IO [String]
+inp21Str = (lines <$>) . readFile . ("app/input/2021" </>)
 
 readFile'' :: FilePath -> IO String
 readFile'' = readFile . ("input" </>)
+
+readFile' :: FilePath -> IO String
+readFile' = readFile . ("app/input" </>)
 
 for = flip Prelude.map
 
