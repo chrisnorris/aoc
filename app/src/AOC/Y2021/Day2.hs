@@ -2,7 +2,7 @@ module AOC.Y2021.Day2 where
 
 import Library
 
-main2 = readInstr >>= navigate >>= print
+main2 = readInstr >>= navigate >>= debug
   
  where navigate = return . 
                      foldr (\[ins, stp] (depth , hPos) -> 

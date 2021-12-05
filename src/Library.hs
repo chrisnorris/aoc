@@ -77,6 +77,12 @@ trimEnd = reverse . drop 2 . reverse
 
 getIntersects (l : ls) = foldl intersect l ls
 
+wordsWhen     :: (Char -> Bool) -> String -> [String]
+wordsWhen p s =  case dropWhile p s of
+                      "" -> []
+                      s' -> w : wordsWhen p s''
+                            where (w, s'') = break p s'
+
 debug :: Show a => a -> IO ()
 debug = print
 
