@@ -77,6 +77,9 @@ trimEnd = reverse . drop 2 . reverse
 
 getIntersects (l : ls) = foldl intersect l ls
 
+debug :: Show a => a -> IO ()
+debug = print
+
 parseFile :: [String] -> String
 parseFile = foldr newLineDemarcated []
  where
