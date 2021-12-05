@@ -14,6 +14,7 @@ module Library
   , fromJust
   , void
   , liftM2
+  , fst3
   )
 where
 
@@ -29,6 +30,7 @@ import           Control.Monad                  ( ap
 import qualified Data.Array                    as A
 import           Data.Bits
 import           Data.Bits.Lens                as L
+import           Data.Tuple.Extra               (fst3)
 import           Data.CircularList             as CL
                                          hiding ( empty )
 import           Data.Either                    ( fromRight )

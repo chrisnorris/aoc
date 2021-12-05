@@ -55,6 +55,7 @@ library
     , containers
     , criterion
     , data-clist
+    , extra
     , filepath
     , lens
     , parsec
@@ -127,6 +128,7 @@ executable aoc
     , containers
     , criterion
     , data-clist
+    , extra
     , filepath
     , lens
     , parsec
@@ -167,6 +169,7 @@ test-suite aoc-test
     , containers
     , criterion
     , data-clist
+    , extra
     , filepath
     , lens
     , parsec
