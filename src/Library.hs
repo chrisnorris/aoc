@@ -59,6 +59,8 @@ import           Text.Parsec                   as P
                                                 )
 import           Text.Regex.TDFA
 
+type PairInts = (Int, Int)
+
 inp21I :: FilePath -> IO [Int]
 inp21I = (Prelude.map read <$>) . inp21Str
 
