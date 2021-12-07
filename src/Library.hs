@@ -43,6 +43,7 @@ import           Data.List                      ( drop
                                                 , take
                                                 , unfoldr
                                                 , partition
+                                                , group
                                                 )
 import           Data.Map                      as Map
                                          hiding ( drop

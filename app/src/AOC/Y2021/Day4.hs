@@ -3,20 +3,19 @@ module AOC.Y2021.Day4 where
 import Library
 import qualified Data.Array as A
 
-
 main = main4 >>=  print
 
 main4 = do
-   (nums : boards) <- readInstr
+   (nums : rawBoards) <- readInstr
    let game :: [Int] = read <$> wordsWhen (== ',') nums
-   let n = (process $ filter (/= "") boards)
-   let m = round $ (fromIntegral (length n)) / 5
-   let allBoards = A.listArray ((0,0), (m-1,4)) n 
+   let boards = (process $ filter (/= "") rawBoards)
+   let noCards = round $ fromIntegral (length boards) / 5
+   let allBoards = A.listArray ((0,0), (noCards - 1, 4)) boards
    
-   return $ (play game allBoards, allBoards)
+   return (play game allBoards, allBoards)
    
- where   play [] board = ([(True, 0,0)],0)
-         play (round : games) boards = 
+ where   play [] board = ([(True, 0, 0)], 0)
+         play (round : games) boards =
             let thisRound = playANumber boards round in
             if fst3 $ head $ theresAWinner thisRound then
                  (theresAWinner thisRound, round) else play games thisRound
@@ -25,7 +24,6 @@ main4 = do
 
 theresAWinner round = 
    let winners = [
-      
            let board = getNthBoard round n
                boardAsArray = A.listArray ((0,0), (4,4)) (concat board)
                zeros = repeat 0
@@ -33,7 +31,6 @@ theresAWinner round =
                ver =  [[(A.!) boardAsArray (i,j) | j <- [0..4] ] | i <- [0..4]]
                hor =  [[(A.!) boardAsArray (j,i) | j <- [0..4] ] | i <- [0..4]] 
                unmarkeds = fst <$> filter ( (== 0) . snd) (concat board) in
-        
            (elem 5 $ sum . map snd <$> (ver <> hor <> [diag]), n, sum unmarkeds) | n <- [0..99]] in
    if True `elem` (fst3 <$> winners) then filter ( (== True) . fst3) winners else [(False, 0, 0)]
 
