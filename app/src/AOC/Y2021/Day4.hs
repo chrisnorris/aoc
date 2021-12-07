@@ -3,8 +3,9 @@ module AOC.Y2021.Day4 where
 import Library
 import qualified Data.Array as A
 
-main = main4 >>=  print
-
+main = main4
+-- sam 4512
+-- full 41503
 main4 = do
    (nums : rawBoards) <- readInstr
    let game :: [Int] = read <$> wordsWhen (== ',') nums
@@ -12,7 +13,7 @@ main4 = do
    let noCards = round $ fromIntegral (length boards) / 5
    let allBoards = A.listArray ((0,0), (noCards - 1, 4)) boards
    
-   return (play game allBoards, allBoards)
+   let ([(_, _, sumUnmarkeds)], round) = (play game allBoards) in print $ round * sumUnmarkeds
    
  where   play [] board = ([(True, 0, 0)], 0)
          play (round : games) boards =
@@ -31,11 +32,13 @@ theresAWinner round =
                ver =  [[(A.!) boardAsArray (i,j) | j <- [0..4] ] | i <- [0..4]]
                hor =  [[(A.!) boardAsArray (j,i) | j <- [0..4] ] | i <- [0..4]] 
                unmarkeds = fst <$> filter ( (== 0) . snd) (concat board) in
+
            (elem 5 $ sum . map snd <$> (ver <> hor <> [diag]), n, sum unmarkeds) | n <- [0..99]] in
    if True `elem` (fst3 <$> winners) then filter ( (== True) . fst3) winners else [(False, 0, 0)]
 
 getNthBoard boards n = [(A.!) boards (n,x) | x <- [0..4]]
 
+-- use [0..2] above for sam, [0.99] full
 readInstr = inp21Str "d4.input"
 
 process boardInput = map ( (,0) . read) . words <$> boardInput
