@@ -44,11 +44,13 @@ import           Data.List                      ( drop
                                                 , unfoldr
                                                 , partition
                                                 , group
+                                                , foldl'
                                                 )
 import           Data.Map                      as Map
                                          hiding ( drop
                                                 , foldr
                                                 , foldl
+                                                , take
                                                 )
 import           Data.Maybe                     ( fromJust )
 import           Data.Monoid                    ( Last(..) )
@@ -62,6 +64,12 @@ import           Text.Regex.TDFA
 
 type PairInts = (Int, Int)
 
+data Source = Sample | Full
+
+instance Show Source where
+        show Sample = ".sam"
+        show Full = ""
+
 inp21I :: FilePath -> IO [Int]
 inp21I = (Prelude.map read <$>) . inp21Str
 
@@ -73,6 +81,12 @@ readFile'' = readFile . ("input" </>)
 
 readFile' :: FilePath -> IO String
 readFile' = readFile . ("app/input" </>)
+
+readFile21 :: FilePath -> IO String
+readFile21 = readFile . ("app/input/2021" </>)
+
+buckets a [] = a 
+buckets a x = buckets (take 1 x:a) (drop 1 x)
 
 for = flip Prelude.map
 

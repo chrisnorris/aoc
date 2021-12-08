@@ -35,11 +35,5 @@ readInstr source =
   (read . (\[a, b, c] -> "((" <> a <> "),(" <> c <> "))") . words <$>)
     <$> inp21Str ("d5.input" <> show source)
 
-data Source = Sample | Full
-
-instance Show Source where
-        show Sample = ".sam"
-        show Full = ""
-
 -- x <- readInstr
 -- print $ length $ filter ( (>1) .length) . group . sort $ concat $ uncurry segment <$> x

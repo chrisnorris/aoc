@@ -52,6 +52,7 @@ dependencies:
     - criterion
     - clock
     - extra
+    - vector
 library:
     source-dirs: src
 

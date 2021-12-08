@@ -13,7 +13,7 @@ main4 = do
    let noCards = round $ fromIntegral (length boards) / 5
    let allBoards = A.listArray ((0,0), (noCards - 1, 4)) boards
    
-   let ([(_, _, sumUnmarkeds)], round) = (play game allBoards) in print $ round * sumUnmarkeds
+   let ([(_, _, sumUnmarkeds)], round) = play game allBoards in print $ round * sumUnmarkeds
    
  where   play [] board = ([(True, 0, 0)], 0)
          play (round : games) boards =
