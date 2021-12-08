@@ -16,4 +16,5 @@ main7 source = do
     ]
 
  where
+   -- got to love pointfree.io
   printPart = (print .) . (. show) . (<>) . (<> " :") . ("part " <>) . show
