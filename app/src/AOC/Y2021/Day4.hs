@@ -9,7 +9,7 @@ main = main4
 main4 = do
    (nums : rawBoards) <- readInstr
    let game :: [Int] = read <$> wordsWhen (== ',') nums
-   let boards = (process $ filter (/= "") rawBoards)
+   let boards = process $ filter (/= "") rawBoards
    let noCards = round $ fromIntegral (length boards) / 5
    let allBoards = A.listArray ((0,0), (noCards - 1, 4)) boards
    

@@ -45,6 +45,7 @@ import           Data.List                      ( drop
                                                 , partition
                                                 , group
                                                 , foldl'
+                                                ,(\\)
                                                 )
 import           Data.Map                      as Map
                                          hiding ( drop
