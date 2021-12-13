@@ -77,14 +77,14 @@ inp21I = (Prelude.map read <$>) . inp21Str
 inp21Str :: FilePath -> IO [String]
 inp21Str = (lines <$>) . readFile . ("app/input/2021" </>)
 
+readFile21 :: FilePath -> IO String
+readFile21 = readFile . ("app/input/2021" </>)
+
 readFile'' :: FilePath -> IO String
 readFile'' = readFile . ("input" </>)
 
 readFile' :: FilePath -> IO String
 readFile' = readFile . ("app/input" </>)
-
-readFile21 :: FilePath -> IO String
-readFile21 = readFile . ("app/input/2021" </>)
 
 buckets a [] = a 
 buckets a x = buckets (take 1 x:a) (drop 1 x)
@@ -136,3 +136,15 @@ breakOut = flip ((<>) . return . return)
 repeatN = (foldr (.) id .) . replicate
 
 
+data Stack a = Stack [a]
+  deriving (Show, Functor)
+
+sempty :: Stack a
+sempty = Stack []
+
+push :: a -> Stack a -> Stack a
+push x (Stack xs) = Stack (x : xs)
+
+pop :: Stack a -> (Maybe a, Stack a)
+pop (Stack []      ) = (Nothing, Stack [])
+pop (Stack (x : xs)) = (Just x, Stack xs)

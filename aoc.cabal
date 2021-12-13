@@ -32,20 +32,23 @@ library
       src
   default-extensions:
       BangPatterns
+      DeriveFunctor
       DuplicateRecordFields
       FlexibleContexts
-      ImportQualifiedPost
+      FlexibleInstances
       GeneralizedNewtypeDeriving
+      ImportQualifiedPost
       InstanceSigs
       LambdaCase
+      MultiParamTypeClasses
       MultiWayIf
       NamedFieldPuns
       RankNTypes
       RecordWildCards
       ScopedTypeVariables
+      TupleSections
       TypeApplications
       TypeFamilies
-      TupleSections
       UndecidableInstances
       ViewPatterns
   build-depends:
@@ -95,6 +98,7 @@ executable aoc
       AOC.Y2020.Day9
       AOC.Y2020.Timings
       AOC.Y2021.Day1
+      AOC.Y2021.Day10
       AOC.Y2021.Day2
       AOC.Y2021.Day3
       AOC.Y2021.Day4
@@ -102,26 +106,30 @@ executable aoc
       AOC.Y2021.Day6
       AOC.Y2021.Day7
       AOC.Y2021.Day8
+      AOC.Y2021.Day9
       AOC.Y2021.Timings
       Paths_aoc
   hs-source-dirs:
       app/src
   default-extensions:
       BangPatterns
+      DeriveFunctor
       DuplicateRecordFields
       FlexibleContexts
-      ImportQualifiedPost
+      FlexibleInstances
       GeneralizedNewtypeDeriving
+      ImportQualifiedPost
       InstanceSigs
       LambdaCase
+      MultiParamTypeClasses
       MultiWayIf
       NamedFieldPuns
       RankNTypes
       RecordWildCards
       ScopedTypeVariables
+      TupleSections
       TypeApplications
       TypeFamilies
-      TupleSections
       UndecidableInstances
       ViewPatterns
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
@@ -150,20 +158,23 @@ test-suite aoc-test
       test
   default-extensions:
       BangPatterns
+      DeriveFunctor
       DuplicateRecordFields
       FlexibleContexts
-      ImportQualifiedPost
+      FlexibleInstances
       GeneralizedNewtypeDeriving
+      ImportQualifiedPost
       InstanceSigs
       LambdaCase
+      MultiParamTypeClasses
       MultiWayIf
       NamedFieldPuns
       RankNTypes
       RecordWildCards
       ScopedTypeVariables
+      TupleSections
       TypeApplications
       TypeFamilies
-      TupleSections
       UndecidableInstances
       ViewPatterns
   ghc-options: -threaded -rtsopts -with-rtsopts=-N

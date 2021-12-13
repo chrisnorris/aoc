@@ -14,20 +14,23 @@ extra-source-files:
 
 default-extensions:
     - BangPatterns
+    - DeriveFunctor
     - DuplicateRecordFields
     - FlexibleContexts
-    - ImportQualifiedPost
+    - FlexibleInstances
     - GeneralizedNewtypeDeriving
+    - ImportQualifiedPost
     - InstanceSigs
     - LambdaCase
+    - MultiParamTypeClasses
     - MultiWayIf
     - NamedFieldPuns
     - RankNTypes
     - RecordWildCards
     - ScopedTypeVariables
+    - TupleSections
     - TypeApplications
     - TypeFamilies
-    - TupleSections
     - UndecidableInstances
     - ViewPatterns
 
