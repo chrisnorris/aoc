@@ -63,6 +63,8 @@ library
     , lens
     , parsec
     , regex-tdfa
+    , split
+    , text
     , vector
   default-language: Haskell2010
 
@@ -99,6 +101,10 @@ executable aoc
       AOC.Y2020.Timings
       AOC.Y2021.Day1
       AOC.Y2021.Day10
+      AOC.Y2021.Day11
+      AOC.Y2021.Day13
+      AOC.Y2021.Day14
+      AOC.Y2021.Day17
       AOC.Y2021.Day2
       AOC.Y2021.Day3
       AOC.Y2021.Day4
@@ -146,6 +152,8 @@ executable aoc
     , lens
     , parsec
     , regex-tdfa
+    , split
+    , text
     , vector
   default-language: Haskell2010
 
@@ -191,5 +199,7 @@ test-suite aoc-test
     , lens
     , parsec
     , regex-tdfa
+    , split
+    , text
     , vector
   default-language: Haskell2010
