@@ -6,6 +6,7 @@ module Library
   , module P
   , module Data.Bits
   , module Data.List
+  , module Data.List.Split
   , module Text.Regex.TDFA
   , ap
   , forM_
@@ -37,6 +38,7 @@ import           Data.Either                    ( fromRight )
 import           Data.List                      ( drop
                                                 , intersect
                                                 , intersperse
+                                                , intercalate
                                                 , nub
                                                 , sort
                                                 , sortBy
@@ -47,6 +49,7 @@ import           Data.List                      ( drop
                                                 , foldl'
                                                 ,(\\)
                                                 )
+import           Data.List.Split                (chunksOf)
 import           Data.Map                      as Map
                                          hiding ( drop
                                                 , foldr
