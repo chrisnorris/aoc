@@ -4,7 +4,7 @@ import Library
 import qualified Data.Map as Map
 
 main =
-  readFile' "d4.input"
+  readFile20 "d4.input"
     >>= (return . length . filter (== True))
       . map (getIds . words)
       . lines

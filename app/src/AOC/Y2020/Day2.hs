@@ -18,4 +18,4 @@ parseLine s =
    in (i1, i2, str, (str >= i1) && (str <= i2))
 
 day2 =
-  map parseLine . lines <$> readFile' "d2.input"
+  map parseLine . lines <$> readFile20 "d2.input"

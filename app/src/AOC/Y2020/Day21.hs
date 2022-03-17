@@ -5,7 +5,7 @@ import qualified Data.Map as Map
 import qualified Data.Set as Set
 
 main = do
-  recipes <- (parse foods "" <$>) . lines <$> readFile' "d21.input" >>= (\p -> return $ concat $ p ^.. below _Right)
+  recipes <- (parse foods "" <$>) . lines <$> readFile20 "d21.input" >>= (\p -> return $ concat $ p ^.. below _Right)
   let allergenMap = foldl go Map.empty recipes
   let dangerousIngredientsList = ["ltbj", "nrfmm", "pvhcsn", "jxbnb", "chpdjkf", "jtqt", "zzkq", "jqnhd"]
 

@@ -1,78 +1,68 @@
+{-# LANGUAGE BangPatterns #-}
 module AOC.Y2021.Day24 where
 
-import           Library       
-import qualified Data.Map  as M            
-import Control.Monad.Trans.State.Strict (State, modify)
-import Prelude hiding (mod)
-import Text.Parsec
-import Text.Parsec.Language (emptyDef)
-import Text.Parsec.String (Parser)
+import           Library
+import qualified Data.Map                      as M
+import           Control.Monad
+import           Prelude                 hiding ( mod )
+import           Text.Parsec
+import           Text.Parsec.Language           ( emptyDef )
+import           Text.Parsec.String             ( Parser )
 
-import qualified Text.Parsec.Token as Tok
-import qualified Text.Parsec.Expr as Ex
+import qualified Text.Parsec.Token             as Tok
+import qualified Text.Parsec.Expr              as Ex
+import           Data.Char                      ( digitToInt )
 
-main = main24 Full >>= print
+main = main24 Full
 
 main24 source = do
+  s <- map parseExpr <$> getInput source
+  let m1      = (toInteger . digitToInt <$>) "99999999999999"
+  let initEnv = updateEnv' e1 (Name "m") (VModel m1)
 
-  source <- map parseExpr <$> getInput source
-  
-  -- return "done"
+  let s0      = MState initEnv s
 
-  let startEnv d = updateEnv (foldl zeroEnv' emptyEnv (Name <$> ["s", "w", "x", "y", "z"]))
-                     (Name "model") (VModel d)
-  let result = foldl evals (startEnv [4]) source
-
-  print result
-  return source
+  print $ highest s0 0
 
  where
   getInput source = inp21Str ("d24.input" <> show source)
-  zeroEnv' :: Env -> Name -> Env
-  zeroEnv' (Env m) x = Env (M.insert x (VNum 0) m)
+  validate e =
+    let VNum z = lookupEnv e (Name "z") in if z == 0 then Valid else Invalid
 
-evals :: Env -> Either ParseError Expr -> Env
-evals env = \case
-    Left s -> emptyEnv
-    Right expr -> eval' env expr
+  highest s n | n > (10 ^ 9) = (Invalid, s)
+  highest s@MState {..} n =
+    let !result = validate $ foldl' evals startEnv source
+    in  if result == Valid then (Valid, s) else highest (nextEnv s) (n + 1)
 
+  nextEnv e@MState {..} =
+    let (VModel oldModel) = lookupEnv startEnv (Name "m")
+    in  MState { startEnv = updateEnv' e1 (Name "m") (VModel $ dec oldModel) , .. }
 
-eval' :: Env -> Expr -> Env
-eval' env = 
-  \case
-    Inp (Var v) -> let (VModel model) = lookupEnv env (Name "model")
-                       pc = 0 in
-                   updateEnv env (Name v) (VNum $ model!!pc)
+{-
+Here is an ALU program which takes a non-negative integer as input, converts it into binary,
+and stores the lowest (1's) bit in z, the second-lowest (2's) bit in y, the third-lowest (4's) bit in x,
+and the fourth-lowest (8's) bit in w 1000
+-}
+test1 = do
+  s <- map parseExpr <$> inp21Str "d24T1.input" 
+  let m1      = (toInteger . digitToInt <$>) "9"
+  let initEnv = updateEnv' e1 (Name "m") (VModel m1)
+  let s0      = MState initEnv s
+  return $ assertWith s0 == [1,0,0,1]
 
-    BinOp op (Var v1) (Int i2) -> let (VNum ev1) = lookupEnv env (Name v1) in
-                                     updateEnv env (Name v1) (VNum $ truncate $ asOp op (fromIntegral ev1) (fromIntegral i2))
+ where
+  assertWith s@MState{..} = let env = foldl' evals startEnv source in
+                            (\(VNum v) -> v) . lookupEnv env . Name <$> reg
 
-    BinOp op (Var v1) (Var v2) -> let (VNum ev1) = lookupEnv env (Name v1)
-                                      (VNum ev2) = lookupEnv env (Name v2) in
-                                      updateEnv env (Name v1) (VNum $ truncate $ asOp op (fromIntegral ev1) (fromIntegral ev2))
+newtype Env' = Env' (M.Map Name Val) deriving Show
 
-    Mod (Var v1) (Var v2) ->  let (VNum ev1) = lookupEnv env (Name v1) 
-                                  (VNum ev2) = lookupEnv env (Name v2) in
-                              updateEnv env (Name v1) (VNum $ rem ev1 ev2)
+newtype Name = Name String  deriving (Eq, Ord, Show)
 
-    Mod (Var v1) (Int i2) ->  let (VNum ev1) = lookupEnv env (Name v1) in
-                              updateEnv env (Name v1) (VNum $ rem ev1 i2)
-
-    Eql (Var v1) (Var v2) ->  let (VNum ev1) = lookupEnv env (Name v1)
-                                  (VNum ev2) = lookupEnv env (Name v2) in
-                              updateEnv env (Name v1) (if ev1 == ev2 then VNum 1 else VNum 0)
-
-    Eql (Var v1) (Int ev2) -> let (VNum ev1) = lookupEnv env (Name v1) in
-                              updateEnv env (Name v1) (if ev1 == ev2 then VNum 1 else VNum 0)
-
-    _ -> undefined
-
-eval :: Env -> Expr -> Val
-eval env = 
-  \case
-     Inp (Var v) -> let env' = updateEnv env (Name v) (VNum 2) in lookupEnv env' (Name v)
- -- rather than just updating this needs to proceed somehow
-     _ -> undefined
+data MState = MState
+  { startEnv :: Env
+  , source   :: [ParseResult]
+  }
+  deriving Show
 
 data Expr
   = Inp Expr
@@ -88,19 +78,93 @@ data Val
     = VNum Integer
     | VStr String
     | VModel [Integer]
-    | VError String deriving (Eq, Ord, Show)
+    | VError String
+    deriving (Eq, Ord, Show)
 
-newtype Env' = Env' (M.Map Name Val) deriving Show
-data Env = Env {pc :: Int,  env :: (M.Map Name Val)} deriving Show
+data Env = Env
+  { pc  :: Int
+  , env :: M.Map Name Val
+  }
+  deriving Show
+
+data ModelNumber = Valid | Invalid deriving (Eq, Show)
+
+
+type ParseResult = Either ParseError Expr
+
+e1 :: Env
+e1 = foldl' zeroEnv' emptyEnv (Name <$> reg)
+
+zeroEnv' :: Env -> Name -> Env
+zeroEnv' Env {..} x = Env { env = M.insert x (VNum 0) env, .. }
+
+reg :: [String]
+reg = ["w", "x", "y", "z"]
+
+dec :: [Integer] -> [Integer]
+dec (l : ls) = let m = (l - 1) in aux m
+ where
+  aux m | m == 0    = 9 : dec ls
+        | otherwise = m : ls
+
+evals :: Env -> Either ParseError Expr -> Env
+evals env = \case
+  Left  s    -> emptyEnv
+  Right expr -> eval' env expr
+
+eval' :: Env -> Expr -> Env
+eval' e@Env {..} = \case
+  Inp (Var v) ->
+    let (VModel model) = lookupEnv e (Name "m")
+    in  updateEnv e (Name v) (VNum $ model !! pc)
+
+  BinOp op (Var v1) (Int i2) ->
+    let (VNum ev1) = lookupEnv e (Name v1)
+    in  updateEnv'
+          e
+          (Name v1)
+          (VNum $ truncate $ asOp op (fromIntegral ev1) (fromIntegral i2))
+
+  BinOp op (Var v1) (Var v2) ->
+    let (VNum ev1) = lookupEnv e (Name v1)
+        (VNum ev2) = lookupEnv e (Name v2)
+    in  updateEnv'
+          e
+          (Name v1)
+          (VNum $ truncate $ asOp op (fromIntegral ev1) (fromIntegral ev2))
+
+  Mod (Var v1) (Var v2) ->
+    let ev1 = retrieve e v1
+        ev2 = retrieve e v2
+    in  updateEnv' e (Name v1) (VNum $ rem ev1 ev2)
+
+  Mod (Var v1) (Int i2) ->
+    let ev1 = retrieve e v1 in updateEnv' e (Name v1) (VNum $ rem ev1 i2)
+
+  Eql (Var v1) (Var v2) ->
+    let ev1        = retrieve e v1
+        (VNum ev2) = lookupEnv e (Name v2)
+    in  updateEnv' e (Name v1) (if ev1 == ev2 then VNum 1 else VNum 0)
+
+  Eql (Var v1) (Int ev2) ->
+    let ev1 = retrieve e v1
+    in  updateEnv' e (Name v1) (if ev1 == ev2 then VNum 1 else VNum 0)
+
+  _ -> undefined
+
+  where retrieve e v = let VNum ev = lookupEnv e (Name v) in ev
 
 emptyEnv :: Env
-emptyEnv = Env M.empty
+emptyEnv = Env { pc = 0, env = M.empty }
 
 lookupEnv :: Env -> Name -> Val
-lookupEnv (Env m) x = fromMaybe (VNum 0) (M.lookup x m)
+lookupEnv Env {..} n = fromMaybe (VNum 0) (M.lookup n env)
 
 updateEnv :: Env -> Name -> Val -> Env
-updateEnv Env{..} x v = Env { pc = pc+1, env = (M.insert x v env)}
+updateEnv Env {..} x v = Env { pc = pc + 1, env = M.insert x v env }
+
+updateEnv' :: Env -> Name -> Val -> Env
+updateEnv' Env {..} x v = Env { env = M.insert x v env, .. }
 
 data Op
   = Plus
@@ -113,18 +177,18 @@ class FromOp b where
   asOp :: (Num a, Fractional a) => b -> a -> a -> a
 
 instance FromOp Op where
-  asOp Plus = (+)
-  asOp Minus = (-)
-  asOp Times = (*)
+  asOp Plus   = (+)
+  asOp Minus  = (-)
+  asOp Times  = (*)
   asOp Divide = (/)
 
 table = []
 
 lexer :: Tok.TokenParser ()
 lexer = Tok.makeTokenParser style
-  where
-    names = ["inp", "add", "div", "mul","mod", "eql"]
-    style = emptyDef { Tok.reservedNames = names }
+ where
+  names = ["inp", "add", "div", "mul", "mod", "eql"]
+  style = emptyDef { Tok.reservedNames = names }
 
 integer :: Parser Integer
 integer = Tok.integer lexer
@@ -154,16 +218,16 @@ variable :: Parser Expr
 variable = Var <$> identifier
 
 binOp :: Op -> String -> Parser Expr
-binOp op r = do 
-    reserved r
-    var <- identifier
-    BinOp op (Var var) . Var <$> identifier
+binOp op r = do
+  reserved r
+  var <- identifier
+  BinOp op (Var var) . Var <$> identifier
 
 binOp' :: Op -> String -> Parser Expr
 binOp' op r = do
-     reserved r
-     var <- identifier
-     BinOp op (Var var) <$> int
+  reserved r
+  var <- identifier
+  BinOp op (Var var) <$> int
 
 add :: Parser Expr
 add = binOp Plus "add"
@@ -185,38 +249,39 @@ divP' = binOp' Divide "div"
 
 inp :: Parser Expr
 inp = do
-     reserved "inp"
-     Inp . Var <$> identifier
+  reserved "inp"
+  Inp . Var <$> identifier
 
 mod :: Parser Expr
-mod = do 
-     reserved "mod"
-     var <- identifier
-     Mod (Var var) <$> int
+mod = do
+  reserved "mod"
+  var <- identifier
+  Mod (Var var) <$> int
 
 eql :: Parser Expr
-eql = do 
-     reserved "eql"
-     varA <- identifier
-     Eql (Var varA) . Var <$> identifier
+eql = do
+  reserved "eql"
+  varA <- identifier
+  Eql (Var varA) . Var <$> identifier
 
 eql' :: Parser Expr
-eql' = do 
-     reserved "eql"
-     varA <- identifier
-     Eql (Var varA) <$> int
+eql' = do
+  reserved "eql"
+  varA <- identifier
+  Eql (Var varA) <$> int
 
 factor :: Parser Expr
-factor = try inp
-      <|> try add
-      <|> try add'
-      <|> try mul
-      <|> try mul'
-      <|> try divP
-      <|> try divP'
-      <|> try mod
-      <|> try eql'
-      <|> try eql
+factor =
+  try inp
+    <|> try add
+    <|> try add'
+    <|> try mul
+    <|> try mul'
+    <|> try divP
+    <|> try divP'
+    <|> try mod
+    <|> try eql'
+    <|> try eql
 
 contents :: Parser a -> Parser a
 contents p = do
@@ -225,7 +290,5 @@ contents p = do
   eof
   return r
 
-parseExpr :: String -> Either ParseError Expr
+parseExpr :: String -> ParseResult
 parseExpr = parse (contents expr) "<stdin>"
-
-newtype Name = Name String  deriving (Eq, Ord, Show)

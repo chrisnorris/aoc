@@ -6,7 +6,7 @@ main :: IO ()
 main = day18 >>= print
 
 day18 = do
-  source <- lines <$> readFile' "d18.input"
+  source <- lines <$> readFile20 "d18.input"
   return $ tokenize [] . words <$> source
   where
     tokenize acc = \case

@@ -13,6 +13,7 @@ module Library
   , forM
   , foldM
   , fromJust
+  , fromMaybe
   , void
   , liftM2
   , fst3
@@ -56,7 +57,8 @@ import           Data.Map                      as Map
                                                 , foldl
                                                 , take
                                                 )
-import           Data.Maybe                     ( fromJust )
+import           Data.Maybe                     ( fromMaybe
+                                                , fromJust )
 import           Data.Monoid                    ( Last(..) )
 import           System.FilePath.Posix
 import           System.IO
@@ -70,12 +72,14 @@ type PairInts = (Int, Int)
 
 data Source = Sample | Full
 
+data Stack a = Stack [a]
+  deriving (Show, Functor)
+
+data Ins = Nop Int | Acc Int | Jmp Int deriving (Show)
+
 instance Show Source where
         show Sample = ".sam"
         show Full = ""
-
-inp21I :: FilePath -> IO [Int]
-inp21I = (Prelude.map read <$>) . inp21Str
 
 inp21Str :: FilePath -> IO [String]
 inp21Str = (lines <$>) . readFile . ("app/input/2021" </>)
@@ -83,11 +87,8 @@ inp21Str = (lines <$>) . readFile . ("app/input/2021" </>)
 readFile21 :: FilePath -> IO String
 readFile21 = readFile . ("app/input/2021" </>)
 
-readFile'' :: FilePath -> IO String
-readFile'' = readFile . ("input" </>)
-
-readFile' :: FilePath -> IO String
-readFile' = readFile . ("app/input" </>)
+readFile20 :: FilePath -> IO String
+readFile20 = readFile . ("app/input/2020" </>)
 
 buckets a [] = a 
 buckets a x = buckets (take 1 x:a) (drop 1 x)
@@ -116,8 +117,6 @@ parseFile = foldr newLineDemarcated []
     "" -> st <> "\n"
     _  -> st <> " " <> e
 
-data Ins = Nop Int | Acc Int | Jmp Int deriving (Show)
-
 parseOperand op = case words op of
   "jmp" : v : _ -> makeOp Jmp v
   "acc" : v : _ -> makeOp Acc v
@@ -137,10 +136,6 @@ asCircularList = CL.fromList . (read <$>) . reverse . foldl breakOut []
 breakOut = flip ((<>) . return . return)
 
 repeatN = (foldr (.) id .) . replicate
-
-
-data Stack a = Stack [a]
-  deriving (Show, Functor)
 
 sempty :: Stack a
 sempty = Stack []

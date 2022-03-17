@@ -3,7 +3,8 @@ module AOC.Y2021.Day13 where
 import           Library
 import qualified Data.Array                    as A
 
-main = main13 Sample
+-- NOT TO BE COMMITTED
+main = main13 Full
 
 main13 source = do
   ins <- map (drop 2 . words) . filter ('=' `elem`) <$> getInput source
@@ -84,9 +85,9 @@ main13 source = do
   let zeroedArray = A.listArray ((0, 0), (xd, yd)) (repeat 0)
   let final       = (A.//) zeroedArray dots
 
-  let applyFolds = foldl (\arr afold -> afold arr) final (take 3 origami)
+  let applyFolds = foldl (\arr afold -> afold arr) final origami
 
-  print $ applyFolds
+  -- print $ applyFolds
 
   let ((x1, y1), (x2, y2)) = A.bounds applyFolds
 
@@ -99,7 +100,7 @@ main13 source = do
   transpose arr xd yd =
     A.array ((0, 0), (yd, xd)) [ ((y, x), e) | ((x, y), e) <- A.assocs arr ]
   pretty arr xd yd = chunksOf
-    (xd + 1)
-    [ if e == 1 then '█' else ' '
+    (xd+1)
+    [ if e == 1 then '█' else '-'
     | ((x, y), e) <- A.assocs (transpose arr xd yd)
     ]

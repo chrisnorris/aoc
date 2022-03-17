@@ -6,7 +6,7 @@ import qualified Data.Map as Map
 main4b = do
   valids <-
     map snd . filter ((True ==) . fst) . map (getId4b . words) . lines . parseFile . lines
-      <$> readFile' "d4.input"
+      <$> readFile20 "d4.input"
   return (valids, map validateMap valids)
 
 getId4b inputList =

@@ -8,7 +8,7 @@ main =
     . (snd <$>)
     . Map.toList
     . run Map.empty []
-    <$> (lines <$> readFile' "d14.input")
+    <$> (lines <$> readFile20 "d14.input")
   where
     intToBits = reverse . toListOf bits
     charIntToBool = toEnum . read . (: [])

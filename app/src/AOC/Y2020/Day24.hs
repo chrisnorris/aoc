@@ -5,7 +5,7 @@ import qualified Data.Map as Map
 
 main = do
   source <-
-    (below _Right `toListOf`) . (parse gram "" <$>) . lines <$> readFile'
+    (below _Right `toListOf`) . (parse gram "" <$>) . lines <$> readFile20
       "d24.input"
   let boundaries = foldl
         (\(x1, y1) e -> case Map.lookup e mp of

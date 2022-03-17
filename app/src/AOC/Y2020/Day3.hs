@@ -6,7 +6,7 @@ main :: IO ()
 main = void day3
 
 day3 = do
-  i <- lines <$> readFile' "d3.input"
+  i <- lines <$> readFile20 "d3.input"
   let steps (r, d) = (0, 0) ^.. unfolded
         (\(x, y) ->
           if y < length i then _Just # ((x, y), (x + r, y + d)) else Nothing

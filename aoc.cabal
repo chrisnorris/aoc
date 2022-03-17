@@ -5,7 +5,7 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           aoc
-version:        0.1.0.0
+version:        0.1.0.1
 description:    Please see the README on GitHub at <https://github.com/chrisnorris/aoc#readme>
 homepage:       https://github.com/chrisnorris/aoc#readme
 bug-reports:    https://github.com/chrisnorris/aoc/issues
@@ -36,6 +36,7 @@ library
       DuplicateRecordFields
       FlexibleContexts
       FlexibleInstances
+      GADTs
       GeneralizedNewtypeDeriving
       ImportQualifiedPost
       InstanceSigs
@@ -55,6 +56,7 @@ library
       array
     , base >=4.7 && <5
     , clock
+    , comonad
     , containers
     , criterion
     , data-clist
@@ -65,6 +67,7 @@ library
     , regex-tdfa
     , split
     , text
+    , transformers
     , vector
   default-language: Haskell2010
 
@@ -102,6 +105,7 @@ executable aoc
       AOC.Y2021.Day1
       AOC.Y2021.Day10
       AOC.Y2021.Day11
+      AOC.Y2021.Day12
       AOC.Y2021.Day13
       AOC.Y2021.Day14
       AOC.Y2021.Day15
@@ -110,6 +114,7 @@ executable aoc
       AOC.Y2021.Day2
       AOC.Y2021.Day20
       AOC.Y2021.Day21
+      AOC.Y2021.Day24
       AOC.Y2021.Day3
       AOC.Y2021.Day4
       AOC.Y2021.Day5
@@ -128,6 +133,7 @@ executable aoc
       DuplicateRecordFields
       FlexibleContexts
       FlexibleInstances
+      GADTs
       GeneralizedNewtypeDeriving
       ImportQualifiedPost
       InstanceSigs
@@ -149,6 +155,7 @@ executable aoc
     , array
     , base >=4.7 && <5
     , clock
+    , comonad
     , containers
     , criterion
     , data-clist
@@ -159,6 +166,7 @@ executable aoc
     , regex-tdfa
     , split
     , text
+    , transformers
     , vector
   default-language: Haskell2010
 
@@ -175,6 +183,7 @@ test-suite aoc-test
       DuplicateRecordFields
       FlexibleContexts
       FlexibleInstances
+      GADTs
       GeneralizedNewtypeDeriving
       ImportQualifiedPost
       InstanceSigs
@@ -196,6 +205,7 @@ test-suite aoc-test
     , array
     , base >=4.7 && <5
     , clock
+    , comonad
     , containers
     , criterion
     , data-clist
@@ -206,5 +216,6 @@ test-suite aoc-test
     , regex-tdfa
     , split
     , text
+    , transformers
     , vector
   default-language: Haskell2010

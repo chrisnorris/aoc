@@ -4,7 +4,7 @@ import Library
 
 main = do
   dirs :: [(String, Int)] <-
-    map (\x -> (take 1 x, read $ drop 1 x)) . lines <$> readFile' "d12.input"
+    map (\x -> (take 1 x, read $ drop 1 x)) . lines <$> readFile20 "d12.input"
   foldM moveShip (0, 0, 0) dirs
 
 moveShip current@(x, y, s) ins =

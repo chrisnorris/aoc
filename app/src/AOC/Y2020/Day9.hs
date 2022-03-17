@@ -6,7 +6,7 @@ main :: IO ()
 main = day9 >>= print
 
 day9 = do
-  baseCodes :: [Int] <- map read . lines <$> readFile' "d9.input"
+  baseCodes :: [Int] <- map read . lines <$> readFile20 "d9.input"
   let preamble = take 25 baseCodes
   let input = drop 25 baseCodes
   getValids preamble input

@@ -11,4 +11,4 @@ day6 =
     . lines
     . parseFile
     . lines
-    <$> readFile' "d6a.input"
+    <$> readFile20 "d6a.input"

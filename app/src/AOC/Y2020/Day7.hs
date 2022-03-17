@@ -6,7 +6,7 @@ main ::IO ()
 main = void day7
 
 day7 =
-  readFile' "d6a.input"
+  readFile20 "d6a.input"
     >>= (return . sum)
       . map (length . getIntersects . words)
       . lines

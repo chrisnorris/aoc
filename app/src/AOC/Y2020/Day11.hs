@@ -5,8 +5,8 @@ import qualified Data.Array as A
 
 
 main = do
-  x <- concat . lines <$> readFile' "d11.input"
-  y <- concat . lines <$> readFile' "d11.input.sam2"
+  x <- concat . lines <$> readFile20 "d11.input"
+  y <- concat . lines <$> readFile20 "d11.input.sam2"
 
   let arrInit = A.listArray ((0, 0), (97, 94)) x
 

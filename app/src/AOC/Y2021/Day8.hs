@@ -41,7 +41,8 @@ main8ii source = do
         ((sequence .) . (<$>) . flip (Map.lookup . sort))
         toDecodedMap
         outputValues
-  let nums :: [Int] =
+
+      nums :: [Int] =
         (\case Just digits -> read $ intToDigit <$> digits )
           <$> finalNumbers
   print $ sum nums

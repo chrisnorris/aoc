@@ -12,4 +12,4 @@ day1 =
         %~ sumOf each
         $  [ (x, y, z) | x <- num, y <- num, z <- num, x + y + z == 2020 ]
     )
-    <$> (map read . lines <$> readFile' "d1.input")
+    <$> (map read . lines <$> readFile20 "d1.input")

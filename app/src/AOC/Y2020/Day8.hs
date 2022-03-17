@@ -6,10 +6,10 @@ main :: IO()
 main = void day8
 
 day8 =
-  readFile' "d8.input" >>= interpret 0 0 . map ((,1) . parseOperand) . lines
+  readFile20 "d8.input" >>= interpret 0 0 . map ((,1) . parseOperand) . lines
 
 day8b = do
-  baseCodes <- map ((,1) . parseOperand) . lines <$> readFile' "d8.input"
+  baseCodes <- map ((,1) . parseOperand) . lines <$> readFile20 "d8.input"
   let allCodes = zip [0 ..] baseCodes
   forM
     ( foldr
