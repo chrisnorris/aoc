@@ -84,6 +84,9 @@ instance Show Source where
 inp21Str :: FilePath -> IO [String]
 inp21Str = (lines <$>) . readFile . ("app/input/2021" </>)
 
+inpStr :: Int -> FilePath -> IO [String]
+inpStr yr = (lines <$>) . readFile . (("app/input/" <> (show yr)) </>)
+
 readFile21 :: FilePath -> IO String
 readFile21 = readFile . ("app/input/2021" </>)
 
