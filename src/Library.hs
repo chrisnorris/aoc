@@ -37,6 +37,7 @@ import           Data.CircularList             as CL
                                          hiding ( empty )
 import           Data.Either                    ( fromRight )
 import           Data.List                      ( drop
+                                                , filter
                                                 , intersect
                                                 , intersperse
                                                 , intercalate
@@ -47,6 +48,7 @@ import           Data.List                      ( drop
                                                 , unfoldr
                                                 , partition
                                                 , group
+                                                , groupBy
                                                 , foldl'
                                                 ,(\\)
                                                 )
