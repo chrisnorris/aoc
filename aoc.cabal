@@ -78,6 +78,7 @@ library
       AOC.Y2022.Day1
       AOC.Y2022.Day2
       AOC.Y2022.Day3
+      AOC.Y2022.Day4
       Library
   other-modules:
       Paths_aoc
