@@ -21,6 +21,6 @@ solveLength n = do
     Nothing -> error "rogue input"
 
 windows xs n = (unique <$>  windowed n xs) `zip` [0..]
-  where unique xs = length (nub xs) /= length xs
+  where unique xs = length (nub xs) /= n
 
 windowed n l@(x:xs) = take n l : windowed n xs
