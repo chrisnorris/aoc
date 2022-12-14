@@ -65,7 +65,7 @@ library:
     source-dirs: src
 
 executables:
-    aoc:
+    aoc-exe:
         main: main.hs
         source-dirs: app
         ghc-options:

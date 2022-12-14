@@ -79,6 +79,8 @@ library
       AOC.Y2022.Day2
       AOC.Y2022.Day3
       AOC.Y2022.Day4
+      AOC.Y2022.Day5
+      AOC.Y2022.Day6
       Library
   other-modules:
       Paths_aoc
@@ -125,7 +127,7 @@ library
     , vector
   default-language: Haskell2010
 
-executable aoc
+executable aoc-exe
   main-is: main.hs
   other-modules:
       Paths_aoc
