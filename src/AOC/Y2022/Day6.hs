@@ -20,7 +20,7 @@ solveLength n = do
     Just res -> return $ res + (n + 1)
     Nothing -> error "rogue input"
 
-windows xs n = (unique <$>  (windowed n xs)) `zip` [0..]
+windows xs n = (unique <$>  windowed n xs) `zip` [0..]
   where unique xs = length (nub xs) /= length xs
 
-windowed n l@(x:xs) = (take n l : windowed n xs)
+windowed n l@(x:xs) = take n l : windowed n xs
