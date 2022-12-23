@@ -12,17 +12,14 @@ import           Text.Parsec.Combinator
 import           AOC.Y2021.Day24                ( integer )
 
 -- 160274622817992
-main_pt1 =
-  parsedC >>=
-    return . run (+)
+main_pt1 = run (+) <$> parsedC
 
 -- 3087390115721
 main_pt2 = do
   commands <- parsedC
-  let (v2, n) = head [ (v, i) | (Yell "humn" v, i) <- commands `zip` [0 ..] ]
-  let humnCommands = commands & ix n .~ Yell "humn" 1
+  let (_, n) = head [ (v, i) | (Yell "humn" v, i) <- commands `zip` [0 ..] ]
 
-  let loop :: (Integer -> IO Integer)
+      loop :: (Integer -> IO Integer)
       loop v = do
         print $ "trying:" <> show v
         if run (==) (commands & ix n .~ Yell "humn" v)
@@ -89,7 +86,6 @@ jobName = do
   string ":"
   many space
   return m
-
 
 monkey = J <$> many1 letter
 
