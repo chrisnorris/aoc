@@ -51,8 +51,7 @@ run op commands = go commands Map.empty []
     Div  mky n1 n2 -> go is m (Div mky (resolve m n1) (resolve m n2) : acc)
 
 main_pt22 = do
-  x <- inpStr 2022 "d21.input"
-  let commands     = sequence (parse command "monkeyness" <$> x) ^. _Right
+  commands <- parsedC
   let (v2, n) = head [ (v, i) | (Yell "humn" v, i) <- commands `zip` [0 ..] ]
   let humnCommands = commands & ix n .~ Yell "humn" 1
 
@@ -76,6 +75,8 @@ main_pt22 = do
   -- iterate on LT and GT until EQ found.
   ans (Run 3087390115602 3087390115729)
 
+steps Run {..} = round $ (fromIntegral end - fromIntegral start) / 2
+
 resolve m i@(I _) = i
 resolve m (  J s) = case Map.lookup s m of
   Just x  -> I x
@@ -89,17 +90,15 @@ jobName = do
   many space
   return m
 
+
+monkey = J <$> many1 letter
+
 data Run = Run
   { start :: Integer
   , end   :: Integer
   }
 
-steps :: Run -> Integer
-steps Run {..} = round $ (fromIntegral end - fromIntegral start) / 2
-
 data R = I Integer | J Monkey deriving Show
-
-monkey = J <$> many1 letter
 
 data Job where
   Yell ::Monkey -> Integer -> Job
@@ -109,6 +108,8 @@ data Job where
   Div ::Monkey -> R -> R -> Job
   deriving Show
 
+data Action = Plus | Minus | Multiply | Divide
+
 type Monkey = String
 
 wait = job Plus Wait
@@ -116,13 +117,10 @@ minus = job Minus Minusy
 mult = job Multiply Mult
 divide = job Divide Div
 
-job :: Action -> (Monkey -> R -> R -> a) -> ParsecT String () Identity a
 job a c =
   c <$> jobName <*> monkey <*> (space *> string (show a) *> space *> monkey)
 
 yell = Yell <$> jobName <*> try integer
-
-data Action = Plus | Minus | Multiply | Divide
 
 instance Show Action where
   show Plus     = "+"
