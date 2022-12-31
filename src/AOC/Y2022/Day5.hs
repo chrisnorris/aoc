@@ -25,8 +25,8 @@ main_pt2 = do
 
 getParsedInput = do
   (model, moves) <- bimap init tail . break (== mempty) <$> inpStr 2022 "d5.input"
-  let instrns = parse' instruction model
-  return $ Inputs (dropWhile (== seperator) <$> transpose instrns) (parse' move moves)
+  let i = parse' instruction model
+  return $ Inputs (dropWhile (== seperator) <$> transpose i) (parse' move moves)
   
  where bracketedUpper = do {char '['; y <-  upper; char ']'; return [y]}
        seperator = "   "

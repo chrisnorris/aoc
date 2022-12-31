@@ -1,4 +1,9 @@
-module AOC.Y2022.Day4 where
+module AOC.Y2022.Day4 
+ (
+  main_pt1,
+  main_pt2
+ )
+where
 
 import Library hiding (fromList, parse)
 import qualified Data.Set  as S
