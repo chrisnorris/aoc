@@ -2,25 +2,68 @@ module AOC.Y2022.Day7 where
 
 import           Library
 
-import           Data.List
+import Data.List(transpose, isPrefixOf)
+import Data.List.Split(splitOn)
+
+import    qualified       Data.Map as M
 import           Text.Parsec
 import           Text.Parsec.Prim
 import           Text.Parsec.Char
 import           Text.Parsec.Combinator
 
--- 1140
-main_pt1 = solveLength 4
+import AOC.Y2021.Day24(integer)
 
--- 3495
-main_pt2 = solveLength 14
+data Terminal where
+    Cd :: String -> Terminal
+    Ls :: Terminal
+    Dir :: String -> Terminal
+    FileData :: Integer -> String -> Terminal
+    deriving Show
 
-solveLength n = do
-  [x] <- inpStr 2022 "d6.input"
-  case maximumOf (folded._2) (takeWhile fst $ windows x n) of
-    Just res -> return $ res + (n + 1)
-    Nothing -> error "rogue input"
+main_pt1 = do
+  x <- inpStr 2022 "d7.input"
+  let
+    parsedTerminal = sequence (parse commands "terminal" <$> x) ^. _Right
+    collapseFiles =
+      foldr (uncurry (M.insertWith (<>))) M.empty $ init $ eval parsedTerminal
+    sumFilesByDir = (\t -> sum [ x | FileData x _ <- t ]) `M.map` collapseFiles
+    sumOverDirs dir = M.foldrWithKey
+      (\ky a acc -> if dir `isPrefixOf` ky then acc + a else acc)
+      0
+      sumFilesByDir
 
-windows xs n = (unique <$>  (windowed n xs)) `zip` [0..]
-  where unique xs = length (nub xs) /= length xs
+  return (sum $ filter (<= 100000) $ sumOverDirs <$> M.keys collapseFiles)
+  where commands = try cd <|> try ls <|> try directory <|> try file
 
-windowed n l@(x:xs) = (take n l : windowed n xs)
+main_pt2 = undefined
+
+eval :: [Terminal] -> [(String, [Terminal])]
+eval = foldl go [("", [])]
+ where
+  go a@((d, f) : b) = \case
+    Cd "/"       -> ("./", []) : a
+    Cd ".." -> (intercalate "/" $ (init . init) (splitOn "/" d) <> "/", []) : a
+    Cd dirName   -> (d <> dirName <> "/", []) : a
+    FileData i s -> (d, [FileData i s]) : a
+    _            -> a
+
+ls = do
+  command
+  string "ls"
+  return Ls
+
+cd =
+  Cd <$> 
+  do 
+    command
+    string "cd"; space;
+    string ".." <|> string "/" <|> many letter;
+
+directory = Dir <$> do
+  string "dir"; space
+  many letter
+
+file = FileData <$>
+         integer <*> many (choice [letter, char '.'])
+
+command = char '$' *> space
