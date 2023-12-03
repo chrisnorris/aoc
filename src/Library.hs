@@ -95,6 +95,9 @@ readFile21 = readFile . ("app/input/2021" </>)
 readFile20 :: FilePath -> IO String
 readFile20 = readFile . ("app/input/2020" </>)
 
+readFileY :: Int -> FilePath -> IO String
+readFileY yr = readFile . ("app/input/" <> show yr </>)
+
 buckets a [] = a 
 buckets a x = buckets (take 1 x:a) (drop 1 x)
 
