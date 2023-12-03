@@ -13,9 +13,6 @@ import           Text.Parsec.Combinator
 
 import AOC.Y2021.Day24(integer)
 
--- data FileTree a = D a [FileData] [FileTree a] deriving Show
--- sumTree (D a files dirss) = sum files + sum $ sumTree <$> dirss
-
 data Terminal where
     Cd :: String -> Terminal
     Ls :: Terminal
@@ -34,7 +31,7 @@ main_pt1 = do
 
  where commands = try cd <|> try ls <|> try directory <|> try file
 
-main_pt2 = undefined
+-- main_pt2 = 
 
 eval :: [Terminal] -> [(String, [Terminal])]
 eval = foldl go [("", [])]
