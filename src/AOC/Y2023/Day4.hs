@@ -1,20 +1,7 @@
 module AOC.Y2023.Day4 where
 
 import AOC.Y2021.Day24(integer)
-
-import qualified Data.Array as A
-import Data.Char
-import Data.Tuple
-import qualified Data.Map as M
-import Text.Parsec
-import Text.Parsec.Prim
-import Text.Parsec.Char
-import Text.Parsec.Combinator
-
 import Library
-
-data Card = Card Integer [Integer] [Integer]
-  deriving (Eq, Show)
 
 main_pt1 = do
   input' <- lines <$> readFileY 2023 "d4.input"
@@ -39,4 +26,4 @@ numbers = concat <$> do {many1  integer `sepBy` space}
 intersects :: [Integer] -> [Integer] -> [Integer]
 intersects [] _ = []
 intersects _ [] = []
-intersects xs ys = filter (\x -> x `elem` xs) ys
+intersects xs ys = filter (`elem` xs) ys
