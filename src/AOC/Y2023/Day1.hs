@@ -1,7 +1,5 @@
 module AOC.Y2023.Day1 where
 
-import AOC.Y2021.Day24(integer)
-
 import Control.Arrow ((&&&))
 import Data.Char
 import Data.Maybe
