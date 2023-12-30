@@ -61,6 +61,7 @@ dependencies:
     - vector
     - split
     - text
+    - mtl
 library:
     source-dirs: src
 
