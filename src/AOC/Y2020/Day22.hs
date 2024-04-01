@@ -2,7 +2,6 @@ module AOC.Y2020.Day22 where
 
 import Library
 
-
 main :: IO Int
 main = do
   let game =

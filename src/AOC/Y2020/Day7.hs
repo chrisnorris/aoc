@@ -2,7 +2,7 @@ module AOC.Y2020.Day7 where
 
 import Library
 
-main ::IO ()
+main :: IO ()
 main = void day7
 
 day7 =

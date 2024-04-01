@@ -1,7 +1,7 @@
 module AOC.Y2020.Day5 where
 
-import Library
 import qualified Data.Map as Map
+import Library
 
 main4b = do
   valids <-
@@ -17,7 +17,8 @@ getId4b inputList =
               passportFields,
         passportFields
       )
-  where expected = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+  where
+    expected = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 
 validateMap :: Map.Map String String -> [Bool]
 validateMap = Map.foldrWithKey validatePassport []
@@ -35,7 +36,7 @@ validateMap = Map.foldrWithKey validatePassport []
 
 validateYear st end y
   | matchTest numbs (trimmed y) =
-    let psd = read y :: Int in (psd >= st && psd <= end)
+      let psd = read y :: Int in (psd >= st && psd <= end)
 validateYear _ _ _ = False
 
 numbs = mkRegex "^:[0-9]{4}$"

@@ -1,7 +1,7 @@
 module AOC.Y2020.Day6 where
 
-import Library
 import qualified Data.Set as Set
+import Library
 
 main :: IO ()
 main = void day6

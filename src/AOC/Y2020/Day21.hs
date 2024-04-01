@@ -1,8 +1,8 @@
 module AOC.Y2020.Day21 where
 
-import Library
 import qualified Data.Map as Map
 import qualified Data.Set as Set
+import Library
 
 main = do
   recipes <- (parse foods "" <$>) . lines <$> readFile20 "d21.input" >>= (\p -> return $ concat $ p ^.. below _Right)

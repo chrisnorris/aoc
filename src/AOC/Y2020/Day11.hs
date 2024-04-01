@@ -1,8 +1,7 @@
 module AOC.Y2020.Day11 where
 
-import Library
 import qualified Data.Array as A
-
+import Library
 
 main = do
   x <- concat . lines <$> readFile20 "d11.input"
@@ -23,27 +22,24 @@ main = do
             adj = adjacents (x, y) arr
             noOccupieds = '#' `notElem` adj
          in case nowSeat of
-           
               -- If a seat is occupied (#) and four or more seats adjacent to it are also occupied, the seat becomes empty.
               '#' -> if length (filter (== '#') adj) >= 4 then 'L' else '#'
-
               -- Otherwise, the seat's state does not change.
               '.' -> '.'
-
               -- If a seat is empty (L) and there are no occupied seats adjacent to it, the seat becomes occupied.
               'L' -> if noOccupieds then '#' else 'L'
 
       loop n arrStart arr =
-         if arrStart == arr
-            then return (n, arrStart)
-            else
-              loop
-                (n + 1)
-                arr
-                ( A.listArray
-                    ((0, 0), (97, 94))
-                    [newSeat arr (i, j) | i <- [0 .. 97], j <- [0 .. 94]]
-                )
+        if arrStart == arr
+          then return (n, arrStart)
+          else
+            loop
+              (n + 1)
+              arr
+              ( A.listArray
+                  ((0, 0), (97, 94))
+                  [newSeat arr (i, j) | i <- [0 .. 97], j <- [0 .. 94]]
+              )
 
   loop 0 (A.listArray ((0, 0), (97, 94)) $ repeat '.') arrInit
 

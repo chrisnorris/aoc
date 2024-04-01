@@ -11,7 +11,6 @@ day9 = do
   let input = drop 25 baseCodes
   getValids preamble input
 
-
 interpretb pc acc instructions =
   if pc == length instructions
     then return (acc, "TERMS")
@@ -37,7 +36,6 @@ interpretb pc acc instructions =
             acc
             (take pc instructions ++ [(Nop n, 2)] ++ drop (pc + 1) instructions)
       ((Nop n, 2), _) -> return (acc, "LOOP")
-
 
 interpret pc acc instructions =
   if pc == length instructions

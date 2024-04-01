@@ -1,7 +1,7 @@
 module AOC.Y2020.Day4 where
 
-import Library
 import qualified Data.Map as Map
+import Library
 
 main =
   readFile20 "d4.input"
@@ -12,9 +12,11 @@ main =
       . lines
 
 getIds =
-  (sort expected ==) . sort
+  (sort expected ==)
+    . sort
     . filter (/= "cid")
     . Map.keys
     . Map.fromList
     . map (break (== ':'))
-  where expected = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+  where
+    expected = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
