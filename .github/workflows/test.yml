@@ -1,5 +1,5 @@
 name: o
-on: push
+'on': push
 jobs:
   ormolu:
     runs-on: ubuntu-20.04
