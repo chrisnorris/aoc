@@ -2,26 +2,26 @@ module AOC.Y2020.Timings where
 
 import Criterion.Main
 
-import AOC.Y2020.Day1  qualified as D1
-import AOC.Y2020.Day2  qualified as D2
-import AOC.Y2020.Day3  qualified as D3
-import AOC.Y2020.Day4  qualified as D4
-import AOC.Y2020.Day5  qualified as D5
-import AOC.Y2020.Day6  qualified as D6
-import AOC.Y2020.Day7  qualified as D7
-import AOC.Y2020.Day8  qualified as D8
-import AOC.Y2020.Day8b qualified as D8b
-import AOC.Y2020.Day9  qualified as D9
-import AOC.Y2020.Day11 qualified as D11
-import AOC.Y2020.Day12 qualified as D12
-import AOC.Y2020.Day14 qualified as D14
-import AOC.Y2020.Day15 qualified as D15
-import AOC.Y2020.Day18 qualified as D18
-import AOC.Y2020.Day21 qualified as D21
-import AOC.Y2020.Day22 qualified as D22
-import AOC.Y2020.Day23 qualified as D23
-import AOC.Y2020.Day24 qualified as D24
-import AOC.Y2020.Day25 qualified as D25
+import qualified AOC.Y2020.Day1  as D1
+import qualified AOC.Y2020.Day2  as D2
+import qualified AOC.Y2020.Day3  as D3
+import qualified AOC.Y2020.Day4  as D4
+import qualified AOC.Y2020.Day5  as D5
+import qualified AOC.Y2020.Day6  as D6
+import qualified AOC.Y2020.Day7  as D7
+import qualified AOC.Y2020.Day8  as D8
+import qualified AOC.Y2020.Day8b as D8b
+import qualified AOC.Y2020.Day9  as D9
+import qualified AOC.Y2020.Day11 as D11
+import qualified AOC.Y2020.Day12 as D12
+import qualified AOC.Y2020.Day14 as D14
+import qualified AOC.Y2020.Day15 as D15
+import qualified AOC.Y2020.Day18 as D18
+import qualified AOC.Y2020.Day21 as D21
+import qualified AOC.Y2020.Day22 as D22
+import qualified AOC.Y2020.Day23 as D23
+import qualified AOC.Y2020.Day24 as D24
+import qualified AOC.Y2020.Day25 as D25
 
 timings = do
  defaultMain [
