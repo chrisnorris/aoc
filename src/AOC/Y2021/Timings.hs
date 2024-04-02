@@ -2,8 +2,8 @@ module AOC.Y2021.Timings where
 
 import Criterion.Main
 
-import AOC.Y2021.Day1  qualified as D1
-import AOC.Y2021.Day2  qualified as D2
+import qualified AOC.Y2021.Day1 as D1
+import qualified AOC.Y2021.Day2 as D2
 
 timings = do
  defaultMain [
