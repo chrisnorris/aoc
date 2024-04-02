@@ -20,7 +20,7 @@ main_pt2 = do
   al <- lines <$> readFileY 2023 "d8.input"
   let (Right tuples) = sequence $ parse tuplesParser "" <$> drop 2 al
       m = M.fromList tuples
-      starts = filter ( (=='A') . last ) (M.keys m)
+      starts = filter ((== 'A') . last) (M.keys m)
   return $ loop (concat $ repeat $ head al) 0 starts (M.fromList tuples)
   where
     loop _ n l _ | (finished l) = n
