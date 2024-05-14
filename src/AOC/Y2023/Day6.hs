@@ -20,4 +20,3 @@ main_pt2 = do
   return $ length $ race races
 
 seedsP2 = read . concatMap show <$> do many1 letter; char ':'; numbers
-
