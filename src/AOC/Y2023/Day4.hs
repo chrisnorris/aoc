@@ -2,6 +2,7 @@ module AOC.Y2023.Day4 where
 
 import AOC.Y2021.Day24 (integer)
 import Library
+data ScratchCardWin a = Card a | Winners a [ScratchCardWin a] deriving (Eq, Show, Ord)
 
 main_pt1 = do
   input' <- lines <$> readFileY 2023 "d4.input"
