@@ -1,12 +1,10 @@
-### aoc solutions 2020, 2021.
+### aoc solutions 2020 - 2024
+e.g.
 ```bash
 stack build
-stack ghci
+stack repl src/AOC/Y2024/Day2.hs
 ```
-From repl:
-```C
-ghci> AOC.Y2020.Day1.main
-```
+
 Install via *[The Haskell Tool Stack](https://docs.haskellstack.org/en/stable/install_and_upgrade/)*
 
 Read about *[criterion](https://hackage.haskell.org/package/criterion)*
