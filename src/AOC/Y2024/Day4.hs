@@ -20,11 +20,11 @@ main_pt2 = do
       valid (l1, l2) = sort l1 == "MS" && sort l2 == "MS"
   return
     [ (x, y)
-    | x <- [1 .. l - 2],
-      y <- [1 .. l - 2],
-      let p x y (dx, dy) = (i !! (x + dx)) !! (y + dy),
-      p x y (0, 0) == 'A',
-      valid (p x y <$> [(-1, -1), (1, 1)], p x y <$> [(-1, 1), (1, -1)])
+      | x <- [1 .. l - 2],
+        y <- [1 .. l - 2],
+        let p x y (dx, dy) = (i !! (x + dx)) !! (y + dy),
+        p x y (0, 0) == 'A',
+        valid (p x y <$> [(-1, -1), (1, 1)], p x y <$> [(-1, 1), (1, -1)])
     ]
 
 parseLists = readFileY 2024 "d4.input"

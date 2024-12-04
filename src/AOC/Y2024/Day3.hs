@@ -1,7 +1,6 @@
 module AOC.Y2024.Day3 where
 
 import AOC.Y2021.Day24 (integer)
-
 import Data.List.Split
 import Library
 
