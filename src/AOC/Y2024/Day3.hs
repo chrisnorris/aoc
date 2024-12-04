@@ -1,9 +1,7 @@
 module AOC.Y2024.Day3 where
 
 import AOC.Y2021.Day24 (integer)
--- import Control.Arrow ((&&&))
 
-import Data.Either
 import Data.List.Split
 import Library
 
@@ -34,12 +32,6 @@ doOrDontMul = go 1 0
 switch (hasSubString "don't" -> True) = 0
 switch (hasSubString "do" -> True) = 1
 switch _ = -1
-
-hasSubString s = isRight . parse hasItem ""
-  where
-    hasItem = prefixItem <* many anyChar
-    prefixItem = try item <|> (anyChar >> prefixItem)
-    item = string s
 
 parseLists = readFileY 2024 "d3.input"
 

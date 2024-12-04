@@ -37,7 +37,7 @@ import Data.Bits.Lens as L
 import Data.CircularList as CL hiding
   ( empty,
   )
-import Data.Either (fromRight)
+import Data.Either (fromRight, isRight)
 import Data.List
   ( drop,
     filter,
@@ -161,3 +161,9 @@ push x (Stack xs) = Stack (x : xs)
 pop :: Stack a -> (Maybe a, Stack a)
 pop (Stack []) = (Nothing, Stack [])
 pop (Stack (x : xs)) = (Just x, Stack xs)
+
+hasSubString s = isRight . parse hasItem ""
+  where
+    hasItem = prefixItem <* many anyChar
+    prefixItem = try item <|> (anyChar >> prefixItem)
+    item = string s
