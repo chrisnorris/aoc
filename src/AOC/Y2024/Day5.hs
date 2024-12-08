@@ -19,7 +19,7 @@ main_pt2 = do
   let y : ys = splitOn "\n\n" input'
       checkLists = safeParse ordersParser (lines y)
       pages = safeParse numbers (lines $ head ys)
-  return $ [ (p, fails' checkOrder' checkLists p) | p <- pages, let l = length p, fails checkOrder checkLists p]
+  return $ [(p, fails' checkOrder' checkLists p) | p <- pages, let l = length p, fails checkOrder checkLists p]
 
 parseLists = readFileY 2024 "d5.input.sam"
 
@@ -34,7 +34,8 @@ numbers = concat <$> many1 integer `sepBy` char ','
 safeParse p s = sequence (parse p "" <$> s) ^. _Right
 
 fails c checkList inp = or $ (\y -> c Start (swap y) inp) <$> checkList
-fails' c checkList inp = ((\y -> c Start (swap y) inp) <$> checkList) ^..folded._Just
+
+fails' c checkList inp = ((\y -> c Start (swap y) inp) <$> checkList) ^.. folded . _Just
 
 checkOrder Start (n, m) [] = False
 checkOrder FoundFirst (n, m) [] = False

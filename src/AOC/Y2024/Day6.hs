@@ -42,10 +42,9 @@ loop2 ns s m =
             else
               if ((detectCycles acc))
                 then 1
-                else
-                  case p nLoc m of
-                    '#' -> go m ns s dist (rotateC c) acc
-                    '.' -> go m ns nLoc (dist + 1) c ((c, nLoc) : acc)
+                else case p nLoc m of
+                  '#' -> go m ns s dist (rotateC c) acc
+                  '.' -> go m ns nLoc (dist + 1) c ((c, nLoc) : acc)
 
 detectCycles l = case ((length l) `compare` 4) of
   GT ->
