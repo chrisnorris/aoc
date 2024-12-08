@@ -62,6 +62,7 @@ dependencies:
     - split
     - text
     - mtl
+    - List
 library:
     source-dirs: src
 
