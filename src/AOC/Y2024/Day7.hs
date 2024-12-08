@@ -34,4 +34,4 @@ run i@(l : ls) s =
       opTree = L.take (m - 1) (repeatM s)
    in foldl' (\b (a, op) -> op b a) l <$> (zip ls <$> L.toList opTree)
 
-(|~) a b = let s = floor $ logBase 10 (fromIntegral b) in ((10^ (s+1)) * a) + b 
+(|~) a b = let s = floor $ logBase 10 (fromIntegral b) in ((10 ^ (s + 1)) * a) + b
