@@ -14,7 +14,7 @@ main_pt2 = do
 getInputs = do
   m <- lines <$> parseLists
   let d = length m
-  let f = ((\ (t, v) -> findOne t v m d) <$>) . snd
+  let f = ((\(t, v) -> findOne t v m d) <$>) . snd
   return (m, d, f)
 
 test_pt1_2 =
@@ -27,20 +27,20 @@ bounded c d = (c > (-1)) && (c < d)
 
 v (a, b) d c m =
   [ pp
-  | x <- [-1, 0, 1],
-    y <- [-1, 0, 1],
-    abs x /= abs y,
-    bounded (a + x) d,
-    bounded (b + y) d,
-    let pp = (a + x, b + y),
-    p m pp == succ c
+    | x <- [-1, 0, 1],
+      y <- [-1, 0, 1],
+      abs x /= abs y,
+      bounded (a + x) d,
+      bounded (b + y) d,
+      let pp = (a + x, b + y),
+      p m pp == succ c
   ]
 
 findAll c m d =
   [ ((p m (x, y), (x, y)), (\a -> (a, p m a)) <$> v (x, y) d c m)
-  | x <- [0 .. d - 1],
-    y <- [0 .. d - 1],
-    p m (x, y) == c
+    | x <- [0 .. d - 1],
+      y <- [0 .. d - 1],
+      p m (x, y) == c
   ]
 
 findOne (x, y) c m d = ((p m (x, y), (x, y)), [(e, p m e) | e <- v (x, y) d c m])

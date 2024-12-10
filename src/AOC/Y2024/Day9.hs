@@ -9,7 +9,7 @@ main_pt1 = do
   let v = V.foldl' (\(s, acc) a -> (s + 1, replicate a (switchOutput s) : acc)) (0, []) (V.fromList inp)
       x = V.fromList $ reverse $ concat $ concat <$> snd v
       y = moveFileBlocks x
-  return $ sum  [e * (read $ (: []) i) |  (i,e) <- (V.toList $ y) `zip` [0..]]
+  return $ sum [e * (read $ (: []) i) | (i, e) <- (V.toList $ y) `zip` [0 ..]]
 
 main_pt2 = undefined
 
