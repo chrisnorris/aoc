@@ -17,6 +17,9 @@ data Terminal where
   FileData :: Integer -> String -> Terminal
   deriving (Show)
 
+-- data FileTree a = D a [FileData] [FileTree a] deriving Show
+-- sumTree (D a files dirss) = sum files + sum $ sumTree <$> dirss
+
 main_pt1 = do
   x <- inpStr 2022 "d7.input"
   let parsedTerminal = sequence (parse commands "terminal" <$> x) ^. _Right

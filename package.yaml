@@ -63,6 +63,7 @@ dependencies:
     - text
     - mtl
     - List
+    - ListTree
     - monad-par
     - parallel
 library:
@@ -73,9 +74,11 @@ executables:
         main: main.hs
         source-dirs: app
         ghc-options:
-            - -O2
+            - -O3
             - -threaded
             - -rtsopts
-            - -with-rtsopts=-N4
+            - -with-rtsopts=-N8
+            - -with-rtsopts=-H128G
+            - -with-rtsopts=-K2G
         dependencies:
             - aoc

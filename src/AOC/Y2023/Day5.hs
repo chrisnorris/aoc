@@ -13,10 +13,17 @@ data Almanac = Almanac
 newtype GardeningMap = GardeningMap [(String, [Integer])] deriving (Show)
 
 main_pt1 = do
-  almanacText <- readFileY 2023 "d5.input"
+  almanacText <- readFileY 2023 "d5.input.sam"
   let Right Almanac {..} = parse almanac "" almanacText
       GardeningMap m = allMaps
   return $ minimum $ (\s -> foldl (\acc (a, b) -> determineMapValue acc $ isSeedInRange acc <$> chunksOf 3 b) s m) <$> seeds
+
+main_pt2 = do
+  almanacText <- readFileY 2023 "d5.input"
+  let Right Almanac {..} = parse almanac "" almanacText
+      GardeningMap m = allMaps
+      newSeeds = (\[a,b] -> [a..(a+b)]) <$> chunksOf 2 seeds
+  return $ minimum $ (\seeds -> minimum $ (\s -> foldl (\acc (a, b) -> determineMapValue acc $ isSeedInRange acc <$> chunksOf 3 b) s m) <$> seeds) <$> newSeeds
 
 almanac = Almanac <$> seedsP <*> (GardeningMap <$> many1 maps)
 
