@@ -28,12 +28,12 @@ cursor l c = [(x, y) | let w = length l - 1, x <- [0 .. w], y <- [0 .. w], (l !!
 getNextMovesWithAcc l p@(x, y) acc =
   let c =
         [ (nx, ny)
-        | dy <- [-1, 0, 1],
-          dx <- [-1, 0, 1],
-          abs dx /= abs dy,
-          let nx = x + dx,
-          let ny = y + dy,
-          (l !! nx) !! ny `elem` ['.', 'E']
+          | dy <- [-1, 0, 1],
+            dx <- [-1, 0, 1],
+            abs dx /= abs dy,
+            let nx = x + dx,
+            let ny = y + dy,
+            (l !! nx) !! ny `elem` ['.', 'E']
         ]
       a = filter (`notElem` acc) c
    in (a, a <> acc)

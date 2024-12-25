@@ -4,35 +4,34 @@ import AOC.Y2021.Day24 (integer)
 import Library
 
 main_pt1 = do
-  d@Device{..} <- getDevice
+  d@Device {..} <- getDevice
   return $ loop (pairs program []) 0 d []
 
 main_pt2 = do
   d <- getDevice
   let p = program d
   let pp = pairs p []
-  
--- forM_ x (appendFile "tmp-day172025.txt" . (++ "\n") . show)
--- 281077810000090
--- 2251077810000090
+
+  -- forM_ x (appendFile "tmp-day172025.txt" . (++ "\n") . show)
+  -- 281077810000090
+  -- 2251077810000090
 
   -- forM [0..1000] $ \a -> do
   --   let v = 281467099000090 + 10000000000 * a
   --   let d2 = loop pp 0 (d {registerA = v}) []
   --   return (v, d2, length d2)
 
--- ///
+  -- ///
   return $ loop2 pp p d 281467099000090
-                           
- 
+
 loop2 pp p d a =
-    let d2 = loop pp 0 (d {registerA = a}) [] in
-    if (d2 == p) then a else loop2 pp p d (a+1)
+  let d2 = loop pp 0 (d {registerA = a}) []
+   in if (d2 == p) then a else loop2 pp p d (a + 1)
 
 getDevice = do
-    m <- readFileY 2024 "d17.input"
-    let (Right Device {..}) = parse device "" m
-    return Device{..}
+  m <- readFileY 2024 "d17.input"
+  let (Right Device {..}) = parse device "" m
+  return Device {..}
 
 combo _ 0 = 0
 combo _ 1 = 1
@@ -53,8 +52,7 @@ loop i ip d o =
     (2, op) -> loop i (ip + 1) (d {registerB = combo d op `mod` 8}) o
     (3, op) ->
       if registerA d == 0
-        then
-          loop i (ip + 1) d o
+        then loop i (ip + 1) d o
         else loop i op d o
     (4, op) ->
       let bxc = registerB d `xor` registerC d
@@ -72,8 +70,7 @@ pairs [] acc = acc
 pairs (x : y : xs) acc =
   pairs xs (acc <> [(x, y)])
 
-data Device
-  = Device
+data Device = Device
   { registerA :: Integer,
     registerB :: Integer,
     registerC :: Integer,

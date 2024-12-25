@@ -42,15 +42,13 @@ performOp "AND" x y = fromEnum $ toEnum x && toEnum y
 performOp "OR" x y = fromEnum $ toEnum x || toEnum y
 performOp "XOR" x y = x `xor` y
 
-data IWV
-  = IWV
+data IWV = IWV
   { wire :: String,
     wireValue :: Int
   }
   deriving (Eq, Show)
 
-data Gates
-  = Gates
+data Gates = Gates
   { wire1 :: String,
     wire2 :: String,
     operation :: String,
