@@ -25,12 +25,18 @@ main_pt2 = do
   where
     -- loop _ n _ l | finished l = n
     loop (p@(i : is), n, m, l) =
-      let f = finished l in
-      if f then n else
-      let pp = ((\e -> let (a,b) = fromJust $ M.lookup e m in 
-                        if i == 'L' then a else b) <$> l) in 
-      loop (is, (n + 1), m, pp)
-        
+      let f = finished l
+       in if f
+            then n
+            else
+              let pp =
+                    ( ( \e ->
+                          let (a, b) = fromJust $ M.lookup e m
+                           in if i == 'L' then a else b
+                      )
+                        <$> l
+                    )
+               in loop (is, (n + 1), m, pp)
 
 tuplesParser = do
   k <- many1 (upper <|> digit)
@@ -38,11 +44,10 @@ tuplesParser = do
   t <- between (char '(') (char ')') (many1 (upper <|> space <|> digit) `sepBy` char ',')
   return (k, trim <$> t)
 
-
 tuplesParser2 = do
   k <- many1 (upper <|> digit)
   many (noneOf "(")
-  t <- between (char '(') (char ')') (do{x <- aunit; char ','; y <- aunit; return (x,y)})
+  t <- between (char '(') (char ')') (do x <- aunit; char ','; y <- aunit; return (x, y))
   return (k, trim <$> t)
 
 aunit = many1 (upper <|> space <|> digit)
