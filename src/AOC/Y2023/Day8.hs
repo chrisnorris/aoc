@@ -25,9 +25,9 @@ main_pt2 = do
   where
     -- loop _ n _ l | finished l = n
     loop (p@(i : is), n, m, l) =
-      let !f = finished l in
+      let f = finished l in
       if f then n else
-      let pp = ((\e -> let !(a,b) = fromJust $ M.lookup e m in 
+      let pp = ((\e -> let (a,b) = fromJust $ M.lookup e m in 
                         if i == 'L' then a else b) <$> l) in 
       loop (is, (n + 1), m, pp)
         
