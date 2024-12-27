@@ -2,7 +2,7 @@ module AOC.Y2024.Day19 where
 
 import AOC.Y2021.Day24 (integer)
 import Data.List
-import Data.Map qualified as M
+import qualified Data.Map as M
 import Library
 
 main_pt1 = do
